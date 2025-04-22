@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sherwin Connect | Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script defer src="/static/js/script.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Welcome, {{ session.name }}</h1>
+    <div class="profile">
+      <img src="/static/uploads/{{ session.photo }}" alt="Profile Photo" />
+      <div>{{ session.user }}<br>ID: {{ session.user_id }}</div>
+      <a href="/account">Account</a> | <a href="/logout">Logout</a>
+    </div>
+  </header>
+
+  <aside>
+    <button onclick="showSection('inbox')">📥 Inbox</button>
+    <button onclick="showSection('compose')">✉️ Compose</button>
+    <a href="/composed-and-sent">
+      <button> 📨 Composed & Sent Mails</button>
+  </a>
+  
+  </aside>
+
+  <main>
+    <!-- Inbox Section -->
+    <section id="inbox">
+      <h2>Inbox</h2>
+      {% if emails %}
+        <ul>
+          {% for email in emails %}
+            <li>
+              <a href="/mail/{{ email[0] }}">
+                <strong>{{ email[1] }}</strong> - {{ email[3] }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No emails yet.</p>
+      {% endif %}
+    </section>
+
+    <!-- Compose Section -->
+    <section id="compose" style="display: none;">
+      <h2>Compose Email</h2>
+      <form method="POST" enctype="multipart/form-data" action="/compose">
+        <input type="email" name="to" placeholder="Recipient Email" required>
+        <input type="text" name="subject" placeholder="Subject" required>
+        <textarea name="body" placeholder="Write your message..." required></textarea>
+        <input type="file" name="attachment">
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

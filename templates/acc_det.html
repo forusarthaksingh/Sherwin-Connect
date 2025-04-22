@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Account Settings</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="account-settings">
+    <h2>Account Details</h2>
+    <p><strong>Email:</strong> {{ session.user }}</p>
+    <p><strong>Name:</strong> {{ session.name }}</p>
+    <p><strong>User ID:</strong> {{ session.user_id }}</p>
+
+    <form method="POST" enctype="multipart/form-data" action="/update_photo">
+      <label>Change Profile Photo:</label>
+      <input type="file" name="photo">
+      <button type="submit">Update Photo</button>
+    </form>
+
+    <form method="POST" action="/change_password">
+      <label>Old Password:</label>
+      <input type="password" name="old_password" required minlength="8">
+      <label>New Password:</label>
+      <input type="password" name="new_password" required minlength="8">
+      <label>Repeat New Password:</label>
+      <input type="password" name="repeat_password" required minlength="8">
+      <button type="submit">Change Password</button>
+    </form>
+    <a href="/dashboard" class="back-btn">← Back to Dashboard</a>
+
+  </div>
+  
+</body>
+</html>

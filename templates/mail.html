@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Mail</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="mail-detail">
+    <h2>Mail from {{ mail.sender }}</h2>
+    <p><strong>Subject:</strong> {{ mail.subject }}</p>
+    <p><strong>Message:</strong><br>{{ mail.body }}</p>
+    {% if mail.attachment %}
+      <p><a href="/static/uploads/{{ mail.attachment }}" download>📎 Download Attachment</a></p>
+    {% endif %}
+    <a href="/dashboard">← Back to Inbox</a>
+  </div>
+</body>
+</html>

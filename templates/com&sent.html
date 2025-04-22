@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Composed & Sent Mails</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="user-info">
+            <img src="/static/uploads/{{ session.photo }}" alt="Profile Photo" class="profile-photo">
+            <span>{{ name }}</span>
+        </div>
+    </div>
+
+    <main>
+        <h2>Composed & Sent Mails</h2>
+        {% if sent_emails %}
+            <ul>
+                {% for email in sent_emails %}
+                    <li>
+                        <strong>To:</strong> {{ email[2] }}<br>
+                        <strong>Subject:</strong> {{ email[3] }}<br>
+                        <strong>Message:</strong> {{ email[4] }}<br>
+                        {% if email[5] %}
+                            <strong>Attachment:</strong> {{ email[5] }}<br>
+                        {% endif %}
+                        <form action="/unsend-email" method="POST" style="margin-top: 5px;">
+                            <input type="hidden" name="email_id" value="{{ email[0] }}">
+                            <button type="submit" class="delete-btn">Unsend</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No sent emails yet.</p>
+        {% endif %}
+    </main>
+    <a href="/dashboard" class="back-button">← Back to Dashboard</a>
+
+</body>
+</html>
